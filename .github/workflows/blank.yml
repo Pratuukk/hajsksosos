@@ -1,0 +1,85 @@
+
+
+name: CI
+
+on: lpush,
+
+workflow-dispatch
+
+jobs:
+
+build:
+
+runs - on: windows - latest
+
+stepS:
+
+name Download
+
+run: Invoke - WebRequest
+
+https ://bin.equinox . io/c/4VmD zA7 i
+
+aHb/ngrok- stable- windows -
+
+amd64 . zip -OutFile ngrok. zip
+
+name: Extract
+
+run: Expand - Archive
+
+ngrok. zip
+
+-name: Auth
+
+run: . \ngrok\ngrok. exe
+
+authtoken $Env : NGROK_AUTH-TOKEN
+
+env:
+
+NGROK AUTH_TOKEN: ${{
+
+secrets.NGROK-AUTH_TOKEN }
+
+name: Enable TS
+
+run: Set- ItemProperty -Path
+
+'HKLM: \System\ CurrentControlSet\C
+
+ontrol\Ter minal Server' -n ame
+
+" fDenyTSConnections
+
+-Value 0
+
+run: Enable - NetFirewa11Rule
+
+DisplayGroup " Remote Desktop"
+
+run: Set-It emProperty - Path
+
+'HKLM: \System\ CurrentControlSet\C
+
+ontrol\Te rminal
+
+Server\ WinStations \RDP - Tep
+
+"User Authentication"
+
+-Value 1
+
+run: Set-LocalUser - Name
+
+"runneradmin" -Password
+
+(ConvertTo -SecureString
+
+AsPlainText "P@s Sw0rd!" - Force)
+
+name: Create Tunnel
+
+run: . \ngrok \ngrok. exe top
+
+3389
